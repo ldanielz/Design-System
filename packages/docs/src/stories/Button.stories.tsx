@@ -13,6 +13,6 @@ export const Primary: StoryObj<ButtonProps> = {}
 
 export const Big: StoryObj<ButtonProps> = {
   args: {
-    size: 'small',
+    size: 'big',
   },
 }
