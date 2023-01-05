@@ -22,3 +22,5 @@ export function MultiStep({ size, currentStep = 1 }: MultiStepProps) {
     </div>
   )
 }
+
+MultiStep.displayName = 'MultiStep'
