@@ -4,10 +4,14 @@
     "packages/*"
   ],
   "scripts": {
-    "dev":"turbo run dev --parallel",
-    "build":"turbo run build"
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=@enay-ui/docs && changeset publish "
   },
   "devDependencies": {
+    "@changesets/cli": "^2.26.0",
     "turbo": "^1.6.3"
   }
 }
