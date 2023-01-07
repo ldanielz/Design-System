@@ -18,7 +18,21 @@ export const ToastContainer = styled(Toast.Root, {
 
   width: 360,
 })
-export const ToastViewport = styled(Toast.Viewport, {})
+export const ToastViewport = styled(Toast.Viewport, {
+  position: 'fixed',
+  bottom: 0,
+  right: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  padding: 25,
+  gap: 10,
+  width: 390,
+  maxWidth: '100vw',
+  margin: 0,
+  listStyle: 'none',
+  zIndex: 2147483647,
+  outline: 'none',
+})
 
 export const ToastTitle = styled(Toast.Title, {
   fontFamily: '$default',
