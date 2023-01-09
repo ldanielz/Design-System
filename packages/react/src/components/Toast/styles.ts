@@ -1,7 +1,35 @@
-import { styled } from '../../styles'
+import { keyframes, styled } from '../../styles'
 import * as Toast from '@radix-ui/react-toast'
 
 export const ToastProvider = styled(Toast.Provider, {})
+
+const slideIn = keyframes({
+  from: {
+    transform: 'translateX(calc(100% + 25px))',
+  },
+  to: {
+    transform: 'translateY(0)',
+  },
+})
+
+const hide = keyframes({
+  from: {
+    opacity: 1,
+  },
+  to: {
+    opacity: 0,
+  },
+})
+
+const swipeOut = keyframes({
+  from: {
+    transform: 'translateX(var(--radix-toast-swipe-end-x))',
+  },
+  to: {
+    transform: 'translateX(calc(100% + 25px ))',
+  },
+})
+
 export const ToastContainer = styled(Toast.Root, {
   position: 'relative',
   display: 'flex',
@@ -13,13 +41,43 @@ export const ToastContainer = styled(Toast.Root, {
   isolation: 'isolate',
 
   background: '$gray800',
-  border: '1px solid $gray600',
+
   borderRadius: 6,
 
   width: 360,
 
-  '&[data-state=open]': {
-    animation: 'slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+  '&[data-state="open"]': {
+    animation: `${slideIn} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
+  },
+  '&[data-state="closed"]': {
+    animation: `${hide} 100ms ease-in`,
+  },
+  '&[data-swipe="move"]': {
+    transform: `translateX(var(--radix-toast-swipe-move-x))`,
+  },
+  '&[data-swipe="cancel"]': {
+    transform: 'translateX(0)',
+    transition: 'transform 200ms ease-out',
+  },
+  '&[data-swipe="end"]': {
+    animation: `${swipeOut} 100ms ease-out`,
+  },
+
+  variants: {
+    variant: {
+      basic: {
+        border: '1px solid $gray600',
+      },
+      success: {
+        border: '2px solid $test',
+      },
+      danger: {
+        border: '2px solid $red600',
+      },
+    },
+  },
+  defaultVariants: {
+    variant: 'basic',
   },
 })
 export const ToastViewport = styled(Toast.Viewport, {

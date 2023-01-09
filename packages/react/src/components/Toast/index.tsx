@@ -13,7 +13,6 @@ export interface ToastProps extends ComponentProps<typeof ToastContainer> {
   title: string
   description: string
   children?: ReactNode
-  variant?: string
   open?: boolean
   functionTest?: () => boolean
 }
@@ -30,10 +29,11 @@ export function Toast({
   open: visible,
   title,
   description,
+  variant,
   ...props
 }: ToastProps) {
   return (
-    <ToastContainer open={visible} {...props}>
+    <ToastContainer variant={variant} open={visible} {...props}>
       <ToastTitle>{title}</ToastTitle>
       <ToastDescription>{description}</ToastDescription>
 

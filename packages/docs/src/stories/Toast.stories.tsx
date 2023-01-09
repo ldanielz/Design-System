@@ -49,7 +49,7 @@ export const AutoDismiss = () => {
   const handleToastAdd = () => {
     setToasts((toasts) => [
       ...toasts,
-      { title: 'novo', description: 'novo desc', duration: 1000 },
+      { title: 'novo', description: 'novo desc', duration: 2000 },
     ])
   }
 
