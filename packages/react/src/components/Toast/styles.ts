@@ -17,6 +17,10 @@ export const ToastContainer = styled(Toast.Root, {
   borderRadius: 6,
 
   width: 360,
+
+  '&[data-state=open]': {
+    animation: 'slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+  },
 })
 export const ToastViewport = styled(Toast.Viewport, {
   position: 'fixed',

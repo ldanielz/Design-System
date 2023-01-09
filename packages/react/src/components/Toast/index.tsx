@@ -1,10 +1,4 @@
-import {
-  ComponentProps,
-  ReactElement,
-  ReactNode,
-  useCallback,
-  useState,
-} from 'react'
+import { ComponentProps, ReactNode } from 'react'
 import {
   ToastClose,
   ToastContainer,
@@ -14,7 +8,6 @@ import {
   ToastViewport,
 } from './styles'
 import { X } from 'phosphor-react'
-import { produce } from 'immer'
 
 export interface ToastProps extends ComponentProps<typeof ToastContainer> {
   title: string
@@ -22,6 +15,7 @@ export interface ToastProps extends ComponentProps<typeof ToastContainer> {
   children?: ReactNode
   variant?: string
   open?: boolean
+  functionTest?: () => boolean
 }
 
 export interface ToastViewportProps
@@ -33,20 +27,13 @@ export interface ToastProviderProps
 }
 
 export function Toast({
-  open,
+  open: visible,
   title,
-  children,
   description,
   ...props
 }: ToastProps) {
-  const [visible, setVisible] = useState(open)
-
-  function toggleToast() {
-    console.log('toggle toast')
-  }
-
   return (
-    <ToastContainer open={visible} onOpenChange={setVisible} {...props}>
+    <ToastContainer open={visible} {...props}>
       <ToastTitle>{title}</ToastTitle>
       <ToastDescription>{description}</ToastDescription>
 
@@ -65,41 +52,8 @@ export function EnayToastViewport({ ...props }: ToastViewportProps) {
 
 EnayToastViewport.displayName = 'ToastViewport'
 
-export type ToastWithContextItemType = ReactElement<
-  Omit<ToastProps, 'contextId'> & {
-    /* A toast with context is used with the toast system and requires a context id */
-    contextId: string
-    permanent?: boolean
-  }
->
-
-export type ToastContextValue = {
-  /** A map of all the toasts */
-  notifications: Map<string, ToastWithContextItemType>
-  /** Creates a new toast or replaces an existing toast if one exists with the same contextId */
-  createNotification: (toast: ToastWithContextItemType) => string | undefined
-  /** Removes a toast by contextId */
-  removeNotification: (id: string) => void
-  /** Stops the automatic removal of the toast */
-  pinNotification: (id: string) => void
-  /** Removes all the toasts */
-  clearNotifications: () => void
-}
-
 export function EnayToastProvider({ children, ...props }: ToastProviderProps) {
-  const createNotification = useCallback<
-    ToastContextValue['createNotification']
-  >((toast) => {
-    const { contextId = 'teste' } = toast.props
-
-    return contextId
-  }, [])
-
-  return (
-    <ToastProvider value={createNotification} {...props}>
-      {children}
-    </ToastProvider>
-  )
+  return <ToastProvider {...props}>{children}</ToastProvider>
 }
 
 EnayToastProvider.displayName = 'ToastProvider'

@@ -1,77 +1,71 @@
 import {
-  Box,
   Button,
   EnayToastProvider,
   EnayToastViewport,
   Toast,
   ToastProps,
 } from '@enay-ui/react'
-import type { ComponentStory, Meta, StoryObj } from '@storybook/react'
-import { within } from '@storybook/testing-library'
+import type { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
 
 export default {
   title: 'Notifications/Toast',
   component: Toast,
+  subcomponents: { EnayToastProvider, EnayToastViewport },
   args: {
-    title: 'Agendamento realizado',
-    description: 'Quarta-feira, 23 de Outubro às 16h',
-    open: true,
-    variant: 'Variant.note',
-    darkMode: 'false',
+    title: 'default',
+    description: 'default Desc',
+    open: false,
   },
-  argTypes: {
-    title: {
-      description: 'Toast title',
-      control: {
-        type: 'text',
-      },
-    },
 
+  argTypes: {
     open: {
       description: 'Toast visible?',
       defaultValue: {
-        open: true,
+        open: false,
       },
       control: 'boolean',
     },
   },
-
   decorators: [
-    (Story) => {
-      return (
-        <>
-          <Box
-            css={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignContent: 'center',
-              padding: 100,
-              height: '100%',
-              overflow: 'auto',
-            }}
-          ></Box>
-          <EnayToastProvider>
-            {Story()}
-            <EnayToastViewport />
-          </EnayToastProvider>
-        </>
-      )
-    },
+    (Story) => (
+      <EnayToastProvider swipeDirection="right">
+        {Story()}
+        <EnayToastViewport />
+      </EnayToastProvider>
+    ),
   ],
 } as Meta<ToastProps>
 
 export const Primary: StoryObj<ToastProps> = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const toast = canvas.getByRole('region')
-
-    console.log(toast)
-  },
   args: {
-    duration: 10000,
+    duration: 6000,
   },
 }
 
-const Template: ComponentStory<typeof Toast> = (args) => <Button>teste</Button>
+export const AutoDismiss = () => {
+  const [toasts, setToasts] = useState<ToastProps[]>([])
 
-export const Default = Template.bind({})
+  const handleToastAdd = () => {
+    setToasts((toasts) => [
+      ...toasts,
+      { title: 'novo', description: 'novo desc', duration: 1000 },
+    ])
+  }
+
+  return (
+    <>
+      <Button onClick={handleToastAdd}>Add</Button>
+      {toasts.map((toast) => {
+        return (
+          <Toast
+            key={toast.title}
+            title={toast.title}
+            description={toast.description}
+            duration={toast.duration}
+          />
+        )
+      })}
+    </>
+  )
+}
