@@ -74,6 +74,9 @@ export const ToastContainer = styled(Toast.Root, {
       danger: {
         border: '2px solid $red600',
       },
+      warning: {
+        border: '2px solid $FF8E0D',
+      },
     },
   },
   defaultVariants: {
@@ -82,18 +85,37 @@ export const ToastContainer = styled(Toast.Root, {
 })
 export const ToastViewport = styled(Toast.Viewport, {
   position: 'fixed',
-  bottom: 0,
-  right: 0,
   display: 'flex',
   flexDirection: 'column',
   padding: 25,
   gap: 10,
-  width: 390,
   maxWidth: '100vw',
   margin: 0,
-  listStyle: 'none',
   zIndex: 2147483647,
   outline: 'none',
+  variants: {
+    position: {
+      topLeft: {
+        top: 0,
+        left: 0,
+      },
+      topRight: {
+        top: 0,
+        right: 0,
+      },
+      bottomLeft: {
+        bottom: 0,
+        left: 0,
+      },
+      bottomRight: {
+        bottom: 0,
+        right: 0,
+      },
+    },
+  },
+  defaultVariants: {
+    position: 'bottomRight',
+  },
 })
 
 export const ToastTitle = styled(Toast.Title, {

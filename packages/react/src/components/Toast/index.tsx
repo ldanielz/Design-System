@@ -10,11 +10,13 @@ import {
 import { X } from 'phosphor-react'
 
 export interface ToastProps extends ComponentProps<typeof ToastContainer> {
+  id: string
   title: string
   description: string
   children?: ReactNode
   open?: boolean
-  functionTest?: () => boolean
+  variant?: 'basic' | 'success' | 'danger' | 'warning'
+  position?: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'
 }
 
 export interface ToastViewportProps
