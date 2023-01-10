@@ -1,0 +1,2 @@
+import{A as t}from"./index-51722e05.js";import"./index-42521bac.js";import"./es.object.get-own-property-descriptor-64192e07.js";import"./index-4bd83974.js";import"./jsx-runtime-c2142c84.js";const p={title:"Data Display/Avatar",component:t,args:{src:"https://github.com/ldanielz.png",alt:"Daniel"},argTypes:{src:{control:{type:"text"}}}},c={},e={args:{src:void 0}},l=["Primary","WithFallback"];export{c as Primary,e as WithFallback,l as __namedExportsOrder,p as default};
+//# sourceMappingURL=Avatar.stories-cecee0c2.js.map
